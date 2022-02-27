@@ -195,6 +195,19 @@ def Add_item_to_wishlist(Username,product_ID,gamers_json_file):
 def Remove_item_from_wishlist(Username,product_ID,gamers_json_file):
     '''Remove items from wishlist || Return True if removed successfully else False'''
     '''Write your code below'''
+    f = open(gamers_json_file, "r+")
+    d = json.load(f)
+    for i in range(len(d)):
+        if d[i]["Username"] == Username:
+            if d[i]["Wishlist"] == [product_ID]:
+                d[i]["Wishlist"]=[]
+
+    f.seek(0)
+    f.truncate()
+    json.dump(d, f)
+    f.close()
+    return True
+
     
 
 def Add_item_to_cart(Username,product_ID,Quantity,gamers_json_file,booking_start_date,booking_end_date,products_json_file):
